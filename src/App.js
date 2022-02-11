@@ -16,14 +16,35 @@ class App extends Component {
         email: "",
         phone: "",
       },
-      education: [],
-      experience: []
+      education: [{
+        id: "",
+        school: "",
+        topic: "",
+        startDate: "",
+        endDate: "",
+      }],
+      experience: [{
+        id: "",
+        name: "",
+        title: "",
+        description: "",
+        startDate: "",
+        endDate: "",
+      }]
     };
+
+    this.handlePersonalChange = this.handlePersonalChange.bind(this);
   };
 
   handleEducationAdd() {
     this.setState({
-      education: [...this.state.education, <Education />]
+      education: [...this.state.education, {
+        id: "",
+        school: "",
+        topic: "",
+        startDate: "",
+        endDate: "",
+      }]
     });
   };
 
@@ -36,7 +57,14 @@ class App extends Component {
 
   handleExperienceAdd() {
     this.setState({
-      experience: [...this.state.experience, <Experience />]
+      experience: [...this.state.experience, {
+        id: "",
+        name: "",
+        title: "",
+        description: "",
+        startDate: "",
+        endDate: "",
+      }]
     });
   }
 
@@ -47,23 +75,62 @@ class App extends Component {
     })
   }
 
+  handlePersonalChange(event, type) {
+    event.preventDefault();
+    const input = event.target.value;
+    this.setState({
+      personal: {
+        ...this.state.personal,
+        [type]: input,
+      },
+    });
+  }
+
   render() {
+  const {personal, education, experience} = this.state;
   return (
     <div className="App">
       <Header />
       <div>
         <h2>Personal</h2>
-        <Info />
+        <Info
+          name={personal.name}
+          email={personal.email}
+          phone={personal.phone}
+          handleChange={this.handlePersonalChange}
+        />
+        {console.log(this.state.personal)}
       </div>
       <div>
         <h2>Education</h2>
-        {this.state.education}
+        {education.map(item => {
+            return (
+              <Education 
+                id={item.id}
+                school={item.school}
+                topic={item.topic}
+                startDate={item.startDate}
+                endDate={item.endDate}
+              />
+            )
+          })}
         <button onClick={() => this.handleEducationAdd()}>Add</button>
         <button onClick={() => this.handleEducationDel()}>Remove</button>
       </div>
       <div>
         <h2>Experience</h2>
-        {this.state.experience}
+        {experience.map(item => {
+            return (
+              <Experience 
+                id={item.id}
+                name={item.name}
+                title={item.title}
+                description={item.description}
+                startDate={item.startDate}
+                endDate={item.endDate}
+              />
+            )
+          })}
         <button onClick={() => this.handleExperienceAdd()}>Add</button>
         <button onClick={() => this.handleExperienceDel()}>Remove</button>
       </div>

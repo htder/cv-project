@@ -11,11 +11,11 @@ class Info extends Component {
       <div>
         <form className="form">
           <label htmlFor="name">Name</label>
-          <input type="text" id="name"/>
+          <input type="text" id="name" onChange={(event) => this.props.handleChange(event, "name")}/>
           <label htmlFor="email">Email</label>
-          <input type="email" id="email"/>
+          <input type="email" id="email" onChange={(event) => this.props.handleChange(event, "email")}/>
           <label htmlFor="phone">Phone Number</label>
-          <input type="tel" id="phone"/>
+          <input type="tel" id="phone" onChange={(event) => this.props.handleChange(event, "phone")}/>
         </form>
       </div>
     )
