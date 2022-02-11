@@ -8,7 +8,7 @@ class Experience extends Component {
   render() {
     return (
       <div>
-        <form className="form">
+        <form className="experience-form">
           <label htmlFor="company">Company</label>
           <input type="text" id="company" onChange={(event) => this.props.handleChange(this.props.id, event, "name")}/>
           <label htmlFor="position">Position</label>

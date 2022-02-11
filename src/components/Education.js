@@ -8,7 +8,7 @@ class Education extends Component {
   render() {
     return (
       <div>
-        <form className="form">
+        <form className="education-form">
           <label htmlFor="school">School</label>
           <input type="text" id="school" onChange={(event) => this.props.handleChange(this.props.id, event, "school")}/>
           <label htmlFor="study">Topic</label>
