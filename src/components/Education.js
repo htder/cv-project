@@ -10,7 +10,7 @@ class Education extends Component {
       <div>
         <form className="form">
           <label htmlFor="school">School</label>
-          <input type="text" id="school"/>
+          <input type="text" id="school" onChange={(event) => this.props.handleChange(this.props.id, event, "school")}/>
           <label htmlFor="study">Topic</label>
           <input type="text" id="study"/>
           <label htmlFor="start-date">Start Date</label>

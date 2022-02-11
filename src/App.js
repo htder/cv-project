@@ -16,30 +16,18 @@ class App extends Component {
         email: "",
         phone: "",
       },
-      education: [{
-        id: "",
-        school: "",
-        topic: "",
-        startDate: "",
-        endDate: "",
-      }],
-      experience: [{
-        id: "",
-        name: "",
-        title: "",
-        description: "",
-        startDate: "",
-        endDate: "",
-      }]
+      education: [],
+      experience: []
     };
 
     this.handlePersonalChange = this.handlePersonalChange.bind(this);
+    this.handleEducationChange = this.handleEducationChange.bind(this);
   };
 
   handleEducationAdd() {
     this.setState({
       education: [...this.state.education, {
-        id: "",
+        id: this.state.education.length,
         school: "",
         topic: "",
         startDate: "",
@@ -58,7 +46,7 @@ class App extends Component {
   handleExperienceAdd() {
     this.setState({
       experience: [...this.state.experience, {
-        id: "",
+        id: this.state.experience.length,
         name: "",
         title: "",
         description: "",
@@ -86,6 +74,53 @@ class App extends Component {
     });
   }
 
+  handleEducationChange(id, event, type) {
+    event.preventDefault();
+    const input = event.target.value;
+    const educ = this.state.education;
+    let item;
+    let position;
+
+    for (let i = 0; i < educ.length; i++) {
+      if (educ[i].id === id) {
+        item = {...educ[i]};
+        position = i;
+      }
+    }
+    item[type] = input;
+
+    const elementsBeforeSlice = this.state.education.slice(0, position);
+    const elementsAfterSlice = this.state.education.slice(position + 1);
+    const newEducationArray = [...elementsBeforeSlice, item, ...elementsAfterSlice];
+
+    this.setState({
+      education: [
+        ...newEducationArray
+      ]
+    })
+
+
+    // const educChange = educ.filter(education => education.id === id);
+    // this.setState({
+    //   education: [
+    //     id = {
+    //       ...educChange,
+    //       [educChange[id].type]: input,
+    //     } 
+    //     // [educChange[id].type] = input,
+    //   ]
+    // })
+
+    // for (let i = 0; i < educ.length; i++) {
+    //   if (educ[i].id === id) {
+    //     [educ[i].type] = input;
+    //     this.setState({
+    //       eduation: educ, 
+    //     })
+    //   }
+    // }
+  }
+
   render() {
   const {personal, education, experience} = this.state;
   return (
@@ -99,18 +134,19 @@ class App extends Component {
           phone={personal.phone}
           handleChange={this.handlePersonalChange}
         />
-        {console.log(this.state.personal)}
       </div>
       <div>
+          {console.log(education)}
         <h2>Education</h2>
-        {education.map(item => {
+        {education.map((item, index) => {
             return (
               <Education 
-                id={item.id}
+                id={index}
                 school={item.school}
                 topic={item.topic}
                 startDate={item.startDate}
                 endDate={item.endDate}
+                handleChange={this.handleEducationChange}
               />
             )
           })}
