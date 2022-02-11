@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import './App.css';
+
 import Info from './components/Info.js';
 import Education from './components/Education.js';
 import Experience from './components/Experience.js';
 import Header from './components/Header.js';
+import Pdf from './components/Pdf.js';
+
 import './styles/styles.css';
 
 class App extends Component {
@@ -119,57 +121,62 @@ class App extends Component {
         ...experience.slice(position + 1)
       ]
     })
-  }
+  };
 
   render() {
   const {personal, education, experience} = this.state;
   return (
     <div className="App">
-      <Header />
-      <div>
-        <h2>Personal</h2>
-        <Info
-          name={personal.name}
-          email={personal.email}
-          phone={personal.phone}
-          handleChange={this.handlePersonalChange}
-        />
+      <div className="main">
+        <Header />
+        <div>
+          <h2>Personal</h2>
+          <Info
+            name={personal.name}
+            email={personal.email}
+            phone={personal.phone}
+            handleChange={this.handlePersonalChange}
+          />
+        </div>
+        <div>
+          <h2>Education</h2>
+          {education.map((item, index) => {
+              return (
+                <Education 
+                  id={index}
+                  school={item.school}
+                  topic={item.topic}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
+                  handleChange={this.handleEducationChange}
+                />
+              )
+            })}
+          <button onClick={() => this.handleEducationAdd()}>Add</button>
+          <button onClick={() => this.handleEducationDel()}>Remove</button>
+        </div>
+        <div>
+          <h2>Experience</h2>
+          {experience.map(item => {
+              return (
+                <Experience 
+                  id={item.id}
+                  name={item.name}
+                  title={item.title}
+                  description={item.description}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
+                  handleChange={this.handleExperienceChange}
+                />
+              )
+            })}
+          <button onClick={() => this.handleExperienceAdd()}>Add</button>
+          <button onClick={() => this.handleExperienceDel()}>Remove</button>
+          {console.log(this.state)}
+        </div>
       </div>
-      <div>
-        <h2>Education</h2>
-        {education.map((item, index) => {
-            return (
-              <Education 
-                id={index}
-                school={item.school}
-                topic={item.topic}
-                startDate={item.startDate}
-                endDate={item.endDate}
-                handleChange={this.handleEducationChange}
-              />
-            )
-          })}
-        <button onClick={() => this.handleEducationAdd()}>Add</button>
-        <button onClick={() => this.handleEducationDel()}>Remove</button>
-      </div>
-      <div>
-        <h2>Experience</h2>
-        {experience.map(item => {
-            return (
-              <Experience 
-                id={item.id}
-                name={item.name}
-                title={item.title}
-                description={item.description}
-                startDate={item.startDate}
-                endDate={item.endDate}
-                handleChange={this.handleExperienceChange}
-              />
-            )
-          })}
-        <button onClick={() => this.handleExperienceAdd()}>Add</button>
-        <button onClick={() => this.handleExperienceDel()}>Remove</button>
-        {console.log(this.state)}
+      <div className="pdf-container">
+          <Pdf data={this.state} />
       </div>
     </div>
   );
