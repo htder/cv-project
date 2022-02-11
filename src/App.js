@@ -28,18 +28,23 @@ class App extends Component {
   };
 
   handleEducationDel() {
-    const newArray = this.state.education.slice(0, this.state.education.length - 1);
+    const slicedEduArray = this.state.education.slice(0, this.state.education.length - 1);
     this.setState({
-      education: [...newArray]
+      education: [...slicedEduArray]
     });
   };
 
   handleExperienceAdd() {
-
+    this.setState({
+      experience: [...this.state.experience, <Experience />]
+    });
   }
 
   handleExperienceDel() {
-
+    const slicedExpArray = this.state.experience.slice(0, this.state.experience.length - 1);
+    this.setState({
+      experience: [...slicedExpArray]
+    })
   }
 
   render() {
@@ -58,9 +63,9 @@ class App extends Component {
       </div>
       <div>
         <h2>Experience</h2>
-        <Experience />
-        <button>Add</button>
-        <button>Remove</button>
+        {this.state.experience}
+        <button onClick={() => this.handleExperienceAdd()}>Add</button>
+        <button onClick={() => this.handleExperienceDel()}>Remove</button>
       </div>
     </div>
   );
