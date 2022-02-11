@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../styles/style-info.css';
 
 class Info extends Component {
   constructor(props) {
@@ -8,8 +9,7 @@ class Info extends Component {
   render() {
     return (
       <div>
-        <h2>Personal</h2>
-        <form>
+        <form className="form">
           <label htmlFor="name">Name</label>
           <input type="text" id="name"/>
           <label htmlFor="email">Email</label>

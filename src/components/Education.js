@@ -8,8 +8,7 @@ class Education extends Component {
   render() {
     return (
       <div>
-        <h2>Education</h2>
-        <form>
+        <form className="form">
           <label htmlFor="school">School</label>
           <input type="text" id="school"/>
           <label htmlFor="study">Topic</label>
@@ -18,8 +17,6 @@ class Education extends Component {
           <input type="date" id="start-date"/>
           <label htmlFor="end-date">End Date</label>
           <input type="date" id="end-date"/>
-          <button>Add</button>
-          <button>Remove</button>
         </form>
       </div>
     )
