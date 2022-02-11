@@ -76,49 +76,25 @@ class App extends Component {
 
   handleEducationChange(id, event, type) {
     event.preventDefault();
-    const input = event.target.value;
-    const educ = this.state.education;
+    const {education} = this.state;
     let item;
     let position;
 
-    for (let i = 0; i < educ.length; i++) {
-      if (educ[i].id === id) {
-        item = {...educ[i]};
-        position = i;
+    education.forEach((value, index) => {
+      if (value.id === id) {
+        item = {...value};
+        position = index;
       }
-    }
-    item[type] = input;
-
-    const elementsBeforeSlice = this.state.education.slice(0, position);
-    const elementsAfterSlice = this.state.education.slice(position + 1);
-    const newEducationArray = [...elementsBeforeSlice, item, ...elementsAfterSlice];
+    })
+    item[type] = event.target.value;
 
     this.setState({
       education: [
-        ...newEducationArray
+      ...education.slice(0, position),
+      item,
+      ...education.slice(position + 1)
       ]
     })
-
-
-    // const educChange = educ.filter(education => education.id === id);
-    // this.setState({
-    //   education: [
-    //     id = {
-    //       ...educChange,
-    //       [educChange[id].type]: input,
-    //     } 
-    //     // [educChange[id].type] = input,
-    //   ]
-    // })
-
-    // for (let i = 0; i < educ.length; i++) {
-    //   if (educ[i].id === id) {
-    //     [educ[i].type] = input;
-    //     this.setState({
-    //       eduation: educ, 
-    //     })
-    //   }
-    // }
   }
 
   render() {
