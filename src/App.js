@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Info from './components/Info.js';
-import Experience from './components/Experience.js';
 import Education from './components/Education.js';
+import Experience from './components/Experience.js';
 import Header from './components/Header.js';
 import './styles/styles.css';
 
@@ -22,6 +22,7 @@ class App extends Component {
 
     this.handlePersonalChange = this.handlePersonalChange.bind(this);
     this.handleEducationChange = this.handleEducationChange.bind(this);
+    this.handleExperienceChange = this.handleExperienceChange.bind(this);
   };
 
   handleEducationAdd() {
@@ -97,6 +98,29 @@ class App extends Component {
     })
   }
 
+  handleExperienceChange(id, event, type) {
+    event.preventDefault();
+    const {experience} = this.state
+    let item;
+    let position;
+
+    experience.forEach((value, index) => {
+      if (value.id === id) {
+        item = {...value};
+        position = index;
+      }
+    })
+    item[type] = event.target.value;
+
+    this.setState({
+      experience: [
+        ...experience.slice(0, position),
+        item,
+        ...experience.slice(position + 1)
+      ]
+    })
+  }
+
   render() {
   const {personal, education, experience} = this.state;
   return (
@@ -112,7 +136,6 @@ class App extends Component {
         />
       </div>
       <div>
-          {console.log(education)}
         <h2>Education</h2>
         {education.map((item, index) => {
             return (
@@ -140,11 +163,13 @@ class App extends Component {
                 description={item.description}
                 startDate={item.startDate}
                 endDate={item.endDate}
+                handleChange={this.handleExperienceChange}
               />
             )
           })}
         <button onClick={() => this.handleExperienceAdd()}>Add</button>
         <button onClick={() => this.handleExperienceDel()}>Remove</button>
+        {console.log(this.state)}
       </div>
     </div>
   );
